@@ -1,53 +1,73 @@
+// Project Done by Raghav Vij, Priyanshu, Raghav Arjun Kaushik, Kush Garg
+
+
 #include <stdio.h>
 
 int main() {
-    int cost = 0, users, ticketType, userChoice, totalCost, totalUsers;
+    char ch;
+    int menu, discount = 0, total = 0, bill = 0,selection;
+    int p = 200, s = 150, e = 100;  
 
-    printf("Price for seats: \n");
-    printf("Premium Seat -> $200 \n");
-    printf("Standard Seat -> $150 \n");
-    printf("Economy seat -> $100");
+    printf("Do you wish to book ticket?: \nEnter y for Yes \nEnter n for No \n:");
+    scanf(" %c", &ch);
 
-    do {
-        printf("Enter the type of ticket you want! \n");
-        printf("Enter 1 for premium, 2 for standard and 3 for economy \t");
-        scanf("%d",&ticketType);
-        switch (ticketType) {
+    while (ch == 'y' || ch == 'Y') {
+        printf("\nMenu:\n");
+        printf("1. Premium Seat - Rs 200\n");
+        printf("2. Standard Seat - Rs 150\n");
+        printf("3. Economy Seat - Rs 100\n");
+        printf("4. Exit\n");
+        printf("Please Enter 1/2/3/4: ");
+        scanf("%d", &menu);
+
+        switch (menu) {
             case 1:
-                printf("Enter the number of tickets for premium seats: \t");
-                scanf("%d",&users);
-                cost = users * 200;
-                totalUsers += users;
-                totalCost += cost;
-                printf("Your total cost would be: %d",cost);
+                printf("You have Selected Premium Seat\n");
+                printf("How Many Seats you want? ");
+                scanf("%d", &selection);
+                bill += selection * p;
                 break;
-                case 2:
-                printf("Enter the number of tickets for standard seats: \t");
-                scanf("%d",&users);
-                totalUsers += users;
-                cost = users * 150;
-                totalCost += cost;
-                printf("Your total cost would be: %d", cost);
-                break;
-                case 3:
-                printf("Enter the number of tickets for economy seats: \t");
-                scanf("%d",&users);
-                cost = users * 100;
-                totalUsers += users;
-                totalCost += cost;
-                printf("Your total cost would be: %d", cost);
-                break;
-                default:printf("Enter a valid ticket type [1-3]!!");
-        }
-        printf("Enter any number except 0 if you want to continue booking! \t");
-        scanf("%d", &userChoice);
-    } while (userChoice !=0);
 
-    if (totalUsers >=5) {
-        totalCost = totalCost -  (totalCost * 0.05);
-        printf("Your total ticket price would be: rupees %d for %d people!", totalCost, totalUsers);
+            case 2:
+                printf("You have Selected Standard Seat\n");
+                printf("How Many Seats you want? ");
+                scanf("%d", &selection);
+                bill += selection * s;
+                break;
+
+            case 3:
+                printf("You have Selected Economy Seat\n");
+                printf("How Many Seats you want? ");
+                scanf("%d", &selection);
+                bill += selection * e;
+                break;
+
+            case 4:
+                ch = 'n'; 
+                break;
+
+            default:
+                printf("Invalid option! Please select 1-4.\n");
+        }
+
+        
+        if (ch != 'n') {
+            printf("\nDo you wish to book more tickets? (y/n): ");
+            scanf(" %c", &ch);
+        }
+    }
+		
+    
+    if (bill > 0) {
+        printf("\nTotal bill before discount: Rs %d\n", bill);
+        if (bill >= 5 * e) {
+            discount = bill * 5 / 100;
+            bill -= discount;
+            printf("Discount applied: Rs %d\n", discount);
+        }
+        printf("Final bill: Rs %d\n", bill);
     } else {
-        printf("Your total cost will be: %d for %d people", totalCost, totalUsers);
+        printf("No tickets booked.\n");
     }
 
     return 0;
